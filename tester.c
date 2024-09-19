@@ -1,9 +1,12 @@
 #include "libft.h"
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
+#include <ctype.h>
 #include <bsd/string.h>
 
-void test_ft_isalpha(void) {
+void test_ft_isalpha(void)
+{
 	printf("=== ft_isalpha ===\n");
 	printf("Running tests...\n");
     // Test 1: Alphabetic characters (lowercase and uppercase)
@@ -43,7 +46,8 @@ void test_ft_isalpha(void) {
 	printf("All tests passed!\n\n");
 }
 
-void test_ft_isdigit() {
+void test_ft_isdigit()
+{
 	printf("=== ft_isdigit ===\n");
 	printf("Running tests...\n");
 
@@ -504,9 +508,354 @@ void test_ft_strlcpy(void)
     assert(strcmp(dest, std_dest) == 0);
     printf("Test 7 passed: Large source, small destination.\n");
 
-    printf("All tests passed!\n");
+    printf("All tests passed!\n\n");
 }
 
+void test_ft_strlcat(void)
+{
+	printf("=== ft_strlcat ===\n");
+	printf("Running tests...\n");
+
+	char dest[50];
+    char std_dest[50];
+    size_t ft_len, std_len;
+
+    // Test 1: Basic concatenation with enough space in dest
+    strcpy(dest, "Hello, ");
+    strcpy(std_dest, "Hello, ");
+    ft_len = ft_strlcat(dest, "World!", 50);
+    std_len = strlcat(std_dest, "World!", 50);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 1 passed: Basic concatenation with enough space.\n");
+
+    // Test 2: Concatenation with limited space
+    strcpy(dest, "Hello, ");
+    strcpy(std_dest, "Hello, ");
+    ft_len = ft_strlcat(dest, "World!", 10);
+    std_len = strlcat(std_dest, "World!", 10);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 2 passed: Concatenation with limited space.\n");
+
+    // Test 3: Concatenation with exact size
+    strcpy(dest, "Hello, ");
+    strcpy(std_dest, "Hello, ");
+    ft_len = ft_strlcat(dest, "World!", 13);
+    std_len = strlcat(std_dest, "World!", 13);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 3 passed: Concatenation with exact size.\n");
+
+    // Test 4: Concatenation with size 0
+    strcpy(dest, "Hello, ");
+    strcpy(std_dest, "Hello, ");
+    ft_len = ft_strlcat(dest, "World!", 0);
+    std_len = strlcat(std_dest, "World!", 0);
+    assert(ft_len == std_len);
+    printf("Test 4 passed: Concatenation with size 0.\n");
+
+    // Test 5: Concatenation with empty source
+    strcpy(dest, "Hello, ");
+    strcpy(std_dest, "Hello, ");
+    ft_len = ft_strlcat(dest, "", 50);
+    std_len = strlcat(std_dest, "", 50);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 5 passed: Concatenation with empty source.\n");
+
+    // Test 6: Concatenation with empty destination
+    strcpy(dest, "");
+    strcpy(std_dest, "");
+    ft_len = ft_strlcat(dest, "World!", 50);
+    std_len = strlcat(std_dest, "World!", 50);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 6 passed: Concatenation with empty destination.\n");
+
+    // Test 7: Concatenation with full destination and no space
+    strcpy(dest, "Hello, World!");
+    strcpy(std_dest, "Hello, World!");
+    ft_len = ft_strlcat(dest, "12345", 13);
+    std_len = strlcat(std_dest, "12345", 13);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 7 passed: Concatenation with full destination and no space.\n");
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_toupper(void)
+{
+	printf("=== ft_toupper ===\n");
+	printf("Running tests...\n");
+
+	int ft_res, std_res;
+
+    // Test 1: Lowercase 'a' to 'A'
+    ft_res = ft_toupper('a');
+    std_res = toupper('a');
+    assert(ft_res == std_res);
+    printf("Test 1 passed: 'a' to 'A'.\n");
+
+    // Test 2: Lowercase 'z' to 'Z'
+    ft_res = ft_toupper('z');
+    std_res = toupper('z');
+    assert(ft_res == std_res);
+    printf("Test 2 passed: 'z' to 'Z'.\n");
+
+    // Test 3: Uppercase 'A' should stay 'A'
+    ft_res = ft_toupper('A');
+    std_res = toupper('A');
+    assert(ft_res == std_res);
+    printf("Test 3 passed: 'A' stays 'A'.\n");
+
+    // Test 4: Non-alphabetic character ('1') should remain unchanged
+    ft_res = ft_toupper('1');
+    std_res = toupper('1');
+    assert(ft_res == std_res);
+    printf("Test 4 passed: '1' stays '1'.\n");
+
+    // Test 5: Non-alphabetic character ('@') should remain unchanged
+    ft_res = ft_toupper('@');
+    std_res = toupper('@');
+    assert(ft_res == std_res);
+    printf("Test 5 passed: '@' stays '@'.\n");
+
+    // Test 6: Space character should remain unchanged
+    ft_res = ft_toupper(' ');
+    std_res = toupper(' ');
+    assert(ft_res == std_res);
+    printf("Test 6 passed: ' ' stays ' '.\n");
+
+    // Test 7: Non-printable character (ASCII 7 - bell) should remain unchanged
+    ft_res = ft_toupper(7);
+    std_res = toupper(7);
+    assert(ft_res == std_res);
+    printf("Test 7 passed: ASCII bell (7) remains unchanged.\n");
+
+    // Test 8: Upper boundary case - '{'
+    ft_res = ft_toupper('{');
+    std_res = toupper('{');
+    assert(ft_res == std_res);
+    printf("Test 8 passed: '{' remains unchanged.\n");
+
+    // Test 9: Lowercase 'b' to 'B'
+    ft_res = ft_toupper('b');
+    std_res = toupper('b');
+    assert(ft_res == std_res);
+    printf("Test 9 passed: 'b' to 'B'.\n");
+
+    // Test 10: Non-alphabetic negative number (-1) should remain unchanged
+    ft_res = ft_toupper(-1);
+    std_res = toupper(-1);
+    assert(ft_res == std_res);
+    printf("Test 10 passed: -1 remains unchanged.\n");
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_tolower(void)
+{
+	printf("=== ft_tolower ===\n");
+	printf("Running tests...\n");
+
+	int ft_res, std_res;
+
+    // Test 1: Uppercase 'A' to lowercase 'a'
+    ft_res = ft_tolower('A');
+    std_res = tolower('A');
+    assert(ft_res == std_res);
+    printf("Test 1 passed: 'A' to 'a'.\n");
+
+    // Test 2: Uppercase 'Z' to lowercase 'z'
+    ft_res = ft_tolower('Z');
+    std_res = tolower('Z');
+    assert(ft_res == std_res);
+    printf("Test 2 passed: 'Z' to 'z'.\n");
+
+    // Test 3: Lowercase 'a' should stay 'a'
+    ft_res = ft_tolower('a');
+    std_res = tolower('a');
+    assert(ft_res == std_res);
+    printf("Test 3 passed: 'a' stays 'a'.\n");
+
+    // Test 4: Non-alphabetic character ('1') should remain unchanged
+    ft_res = ft_tolower('1');
+    std_res = tolower('1');
+    assert(ft_res == std_res);
+    printf("Test 4 passed: '1' stays '1'.\n");
+
+    // Test 5: Non-alphabetic character ('@') should remain unchanged
+    ft_res = ft_tolower('@');
+    std_res = tolower('@');
+    assert(ft_res == std_res);
+    printf("Test 5 passed: '@' stays '@'.\n");
+
+    // Test 6: Space character should remain unchanged
+    ft_res = ft_tolower(' ');
+    std_res = tolower(' ');
+    assert(ft_res == std_res);
+    printf("Test 6 passed: ' ' stays ' '.\n");
+
+    // Test 7: Non-printable character (ASCII 7 - bell) should remain unchanged
+    ft_res = ft_tolower(7);
+    std_res = tolower(7);
+    assert(ft_res == std_res);
+    printf("Test 7 passed: ASCII bell (7) remains unchanged.\n");
+
+    // Test 8: Upper boundary case - '['
+    ft_res = ft_tolower('[');
+    std_res = tolower('[');
+    assert(ft_res == std_res);
+    printf("Test 8 passed: '[' remains unchanged.\n");
+
+    // Test 9: Uppercase 'B' to lowercase 'b'
+    ft_res = ft_tolower('B');
+    std_res = tolower('B');
+    assert(ft_res == std_res);
+    printf("Test 9 passed: 'B' to 'b'.\n");
+
+    // Test 10: Non-alphabetic negative number (-1) should remain unchanged
+    ft_res = ft_tolower(-1);
+    std_res = tolower(-1);
+    assert(ft_res == std_res);
+    printf("Test 10 passed: -1 remains unchanged.\n");
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_strchr(void)
+{
+	printf("=== ft_strchr ===\n");
+	printf("Running tests...\n");
+
+	char *ft_res, *std_res;
+    const char *str = "Hello, World!";
+
+    // Test 1: Find 'H' in the string
+    ft_res = ft_strchr(str, 'H');
+    std_res = strchr(str, 'H');
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Find 'H'.\n");
+
+    // Test 2: Find 'W' in the string
+    ft_res = ft_strchr(str, 'W');
+    std_res = strchr(str, 'W');
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Find 'W'.\n");
+
+    // Test 3: Find ',' in the string
+    ft_res = ft_strchr(str, ',');
+    std_res = strchr(str, ',');
+    assert(ft_res == std_res);
+    printf("Test 3 passed: Find ','.\n");
+
+    // Test 4: Search for null character '\0'
+    ft_res = ft_strchr(str, '\0');
+    std_res = strchr(str, '\0');
+    assert(ft_res == std_res);
+    printf("Test 4 passed: Find null character '\\0'.\n");
+
+    // Test 5: Search for a character not in the string
+    ft_res = ft_strchr(str, 'x');
+    std_res = strchr(str, 'x');
+    assert(ft_res == std_res);
+    printf("Test 5 passed: Character not found ('x').\n");
+
+    // Test 6: Find 'l' in the string (first occurrence)
+    ft_res = ft_strchr(str, 'l');
+    std_res = strchr(str, 'l');
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Find first 'l'.\n");
+
+    // Test 7: Find space ' ' in the string
+    ft_res = ft_strchr(str, ' ');
+    std_res = strchr(str, ' ');
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Find space ' '.\n");
+
+    // Test 8: Empty string, search for 'a'
+    const char *empty_str = "";
+    ft_res = ft_strchr(empty_str, 'a');
+    std_res = strchr(empty_str, 'a');
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Search in an empty string.\n");
+
+    // Test 9: Empty string, search for '\0'
+    ft_res = ft_strchr(empty_str, '\0');
+    std_res = strchr(empty_str, '\0');
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Search for '\\0' in an empty string.\n");
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_strrchr(void)
+{
+	printf("=== ft_strrchr ===\n");
+	printf("Running tests...\n");
+
+	char *ft_res, *std_res;
+    const char *str = "Hello, World!";
+
+    // Test 1: Find last 'o' in the string
+    ft_res = ft_strrchr(str, 'o');
+    std_res = strrchr(str, 'o');
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Find last 'o'.\n");
+
+    // Test 2: Find last 'l' in the string
+    ft_res = ft_strrchr(str, 'l');
+    std_res = strrchr(str, 'l');
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Find last 'l'.\n");
+
+    // Test 3: Find last 'W' in the string
+    ft_res = ft_strrchr(str, 'W');
+    std_res = strrchr(str, 'W');
+    assert(ft_res == std_res);
+    printf("Test 3 passed: Find last 'W'.\n");
+
+    // Test 4: Search for null character '\0'
+    ft_res = ft_strrchr(str, '\0');
+    std_res = strrchr(str, '\0');
+    assert(ft_res == std_res);
+    printf("Test 4 passed: Find null character '\\0'.\n");
+
+    // Test 5: Search for a character not in the string
+    ft_res = ft_strrchr(str, 'x');
+    std_res = strrchr(str, 'x');
+    assert(ft_res == std_res);
+    printf("Test 5 passed: Character not found ('x').\n");
+
+    // Test 6: Find last 'H' in the string
+    ft_res = ft_strrchr(str, 'H');
+    std_res = strrchr(str, 'H');
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Find last 'H'.\n");
+
+    // Test 7: Find space ' ' in the string
+    ft_res = ft_strrchr(str, ' ');
+    std_res = strrchr(str, ' ');
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Find space ' '.\n");
+
+    // Test 8: Empty string, search for 'a'
+    const char *empty_str = "";
+    ft_res = ft_strrchr(empty_str, 'a');
+    std_res = strrchr(empty_str, 'a');
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Search in an empty string.\n");
+
+    // Test 9: Empty string, search for '\0'
+    ft_res = ft_strrchr(empty_str, '\0');
+    std_res = strrchr(empty_str, '\0');
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Search for '\\0' in an empty string.\n");
+
+    printf("All tests passed!\n\n");
+}
 int main(void)
 {
     test_ft_isalpha();
@@ -530,5 +879,15 @@ int main(void)
 	test_ft_memmove();
 
 	test_ft_strlcpy();
+
+	test_ft_strlcat();
+
+	test_ft_toupper();
+
+	test_ft_tolower();
+
+	test_ft_strchr();
+
+	test_ft_strrchr();
 	return (0);
 }
