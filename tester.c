@@ -932,6 +932,79 @@ void test_ft_strncmp(void)
     printf("All tests passed!\n\n");
 }
 
+void test_ft_memchr(void)
+{
+	printf("=== ft_memchr ===\n");
+	printf("Running tests...\n");
+
+	void *ft_res, *std_res;
+
+    // Test 1: Character found in the middle
+    char str1[] = "Hello, World!";
+    ft_res = ft_memchr(str1, 'W', 13);
+    std_res = memchr(str1, 'W', 13);
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Character 'W' found in the middle.\n");
+
+    // Test 2: Character not found
+    ft_res = ft_memchr(str1, 'x', 13);
+    std_res = memchr(str1, 'x', 13);
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Character 'x' not found.\n");
+
+    // Test 3: Character found at the beginning
+    ft_res = ft_memchr(str1, 'H', 13);
+    std_res = memchr(str1, 'H', 13);
+    assert(ft_res == std_res);
+    printf("Test 3 passed: Character 'H' found at the beginning.\n");
+
+    // Test 4: Character found at the end
+    ft_res = ft_memchr(str1, '!', 13);
+    std_res = memchr(str1, '!', 13);
+    assert(ft_res == std_res);
+    printf("Test 4 passed: Character '!' found at the end.\n");
+
+    // Test 5: Searching with n = 0 (no search should happen, return NULL)
+    ft_res = ft_memchr(str1, 'H', 0);
+    std_res = memchr(str1, 'H', 0);
+    assert(ft_res == std_res);
+    printf("Test 5 passed: n = 0 (return NULL).\n");
+
+    // Test 6: Character not found with n less than string length
+    ft_res = ft_memchr(str1, 'W', 5);
+    std_res = memchr(str1, 'W', 5);
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Character 'W' not found when n < length.\n");
+
+    // Test 7: Searching for the null byte within the string
+    ft_res = ft_memchr(str1, '\0', 14);  // Including null byte in search
+    std_res = memchr(str1, '\0', 14);
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Searching for the null byte.\n");
+
+    // Test 8: Empty string with n > 0 (no match)
+    char str2[] = "";
+    ft_res = ft_memchr(str2, 'a', 1);
+    std_res = memchr(str2, 'a', 1);
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Empty string, no match.\n");
+
+    // Test 9: Character found with n = 1
+    char str3[] = "A";
+    ft_res = ft_memchr(str3, 'A', 1);
+    std_res = memchr(str3, 'A', 1);
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Single character string, match found.\n");
+
+    // Test 10: Character not found in n = 1
+    ft_res = ft_memchr(str3, 'B', 1);
+    std_res = memchr(str3, 'B', 1);
+    assert(ft_res == std_res);
+    printf("Test 10 passed: Single character string, no match.\n");
+
+    printf("All tests passed!\n\n");
+}
+
 int main(void)
 {
     test_ft_isalpha();
@@ -967,5 +1040,7 @@ int main(void)
 	test_ft_strrchr();
 
 	test_ft_strncmp();
+
+	test_ft_memchr();
 	return (0);
 }
