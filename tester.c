@@ -1005,6 +1005,88 @@ void test_ft_memchr(void)
     printf("All tests passed!\n\n");
 }
 
+void test_ft_memcmp(void)
+{
+	printf("=== ft_memcmp ===\n");
+	printf("Running tests...\n");
+
+	int ft_res, std_res;
+
+    // Test 1: Comparing equal strings
+    char str1[] = "Hello, World!";
+    char str2[] = "Hello, World!";
+    ft_res = ft_memcmp(str1, str2, 13);
+    std_res = memcmp(str1, str2, 13);
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Equal strings comparison.\n");
+
+    // Test 2: Comparing different strings (first differing at the start)
+    char str3[] = "Hello, World!";
+    char str4[] = "hello, World!"; // Different case 'H' vs 'h'
+    ft_res = ft_memcmp(str3, str4, 13);
+    std_res = memcmp(str3, str4, 13);
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Different strings comparison (at start).\n");
+
+    // Test 3: Comparing different strings (first differing in the middle)
+    char str5[] = "Hello, World!";
+    char str6[] = "Hello, world!"; // Different 'W' vs 'w'
+    ft_res = ft_memcmp(str5, str6, 13);
+    std_res = memcmp(str5, str6, 13);
+    assert(ft_res == std_res);
+    printf("Test 3 passed: Different strings comparison (in the middle).\n");
+
+    // Test 4: Comparing different strings with same prefix
+    char str7[] = "Hello";
+    char str8[] = "Hello, World!"; // str7 is a prefix of str8
+    ft_res = ft_memcmp(str7, str8, 5);  // Only compare first 5 characters
+    std_res = memcmp(str7, str8, 5);
+    assert(ft_res == std_res);
+    printf("Test 4 passed: Prefix comparison (equal first 5 characters).\n");
+
+    // Test 5: Comparing different strings with unequal length (n < min length)
+    ft_res = ft_memcmp(str7, str8, 10);  // Compare more than available in str7
+    std_res = memcmp(str7, str8, 10);
+    assert(ft_res == std_res);
+    printf("Test 5 passed: Prefix comparison (n > length of first string).\n");
+
+    // Test 6: Comparing with zero length (should always return 0)
+    ft_res = ft_memcmp(str1, str2, 0);
+    std_res = memcmp(str1, str2, 0);
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Comparison with n = 0.\n");
+
+    // Test 7: Comparing empty strings (n = 0)
+    char empty1[] = "";
+    char empty2[] = "";
+    ft_res = ft_memcmp(empty1, empty2, 0);
+    std_res = memcmp(empty1, empty2, 0);
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Empty strings comparison with n = 0.\n");
+
+    // Test 8: Comparing empty string with non-empty string
+    ft_res = ft_memcmp(empty1, str8, 1);
+    std_res = memcmp(empty1, str8, 1);
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Empty string vs non-empty string.\n");
+
+    // Test 9: Comparing arrays of bytes
+    unsigned char arr1[] = {0x01, 0x02, 0x03, 0x04};
+    unsigned char arr2[] = {0x01, 0x02, 0x03, 0x05};  // Last byte is different
+    ft_res = ft_memcmp(arr1, arr2, 4);
+    std_res = memcmp(arr1, arr2, 4);
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Byte arrays comparison (last byte differs).\n");
+
+    // Test 10: Comparing arrays of bytes (same array)
+    ft_res = ft_memcmp(arr1, arr1, 4);
+    std_res = memcmp(arr1, arr1, 4);
+    assert(ft_res == std_res);
+    printf("Test 10 passed: Byte arrays comparison (identical arrays).\n");
+
+    printf("All tests passed!\n\n");
+}
+
 int main(void)
 {
     test_ft_isalpha();
@@ -1042,5 +1124,7 @@ int main(void)
 	test_ft_strncmp();
 
 	test_ft_memchr();
+
+	test_ft_memcmp();
 	return (0);
 }
