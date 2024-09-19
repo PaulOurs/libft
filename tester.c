@@ -1,6 +1,7 @@
 #include "libft.h"
 #include <stdio.h>
 #include <string.h>
+#include <bsd/string.h>
 
 void test_ft_isalpha(void) {
 	printf("=== ft_isalpha ===\n");
@@ -440,6 +441,72 @@ void test_ft_memmove(void)
 	printf("All tests passed!\n\n");
 }
 
+void test_ft_strlcpy(void)
+{
+	printf("=== ft_strlcpy ===\n");
+	printf("Running tests...\n");
+
+	char dest[50];
+    char std_dest[50];
+    size_t ft_len, std_len;
+
+    // Test 1: Destination size larger than source
+    ft_len = ft_strlcpy(dest, "Hello, World!", 20);
+    std_len = strlcpy(std_dest, "Hello, World!", 20);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 1 passed: Destination size larger than source.\n");
+
+    // Test 2: Destination size smaller than source
+    ft_len = ft_strlcpy(dest, "Hello", 3);
+    std_len = strlcpy(std_dest, "Hello", 3);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 2 passed: Destination size smaller than source.\n");
+
+    // Test 3: Destination size exactly the length of the source + 1
+    ft_len = ft_strlcpy(dest, "Hello", 6);
+    std_len = strlcpy(std_dest, "Hello", 6);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 3 passed: Destination size exactly length of source + 1.\n");
+
+    // Test 4: Destination size zero
+    ft_len = ft_strlcpy(dest, "Hello", 0);
+    std_len = strlcpy(std_dest, "Hello", 0);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 4 passed: Destination size zero.\n");
+
+    // Test 5: Empty source
+    ft_len = ft_strlcpy(dest, "", 10);
+    std_len = strlcpy(std_dest, "", 10);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 5 passed: Empty source.\n");
+
+    // Test 6: Empty source with size zero
+    ft_len = ft_strlcpy(dest, "", 0);
+    std_len = strlcpy(std_dest, "", 0);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 6 passed: Empty source with size zero.\n");
+
+    // Test 7: Large source, small destination
+    char large_src[50];
+    for (size_t i = 0; i < 49; i++) {
+        large_src[i] = 'a';
+    }
+    large_src[49] = '\0'; // Make it a null-terminated string
+    ft_len = ft_strlcpy(dest, large_src, 10);
+    std_len = strlcpy(std_dest, large_src, 10);
+    assert(ft_len == std_len);
+    assert(strcmp(dest, std_dest) == 0);
+    printf("Test 7 passed: Large source, small destination.\n");
+
+    printf("All tests passed!\n");
+}
+
 int main(void)
 {
     test_ft_isalpha();
@@ -461,5 +528,7 @@ int main(void)
 	test_ft_memcpy();
 
 	test_ft_memmove();
+
+	test_ft_strlcpy();
 	return (0);
 }
