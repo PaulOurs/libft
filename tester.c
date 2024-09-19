@@ -856,6 +856,82 @@ void test_ft_strrchr(void)
 
     printf("All tests passed!\n\n");
 }
+void test_ft_strncmp(void)
+{
+	printf("=== ft_strncmp ===\n");
+	printf("Running tests...\n");
+
+	int ft_res, std_res;
+
+    // Test 1: Compare equal strings with n > 0
+    ft_res = ft_strncmp("Hello", "Hello", 5);
+    std_res = strncmp("Hello", "Hello", 5);
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Equal strings with n = 5.\n");
+
+    // Test 2: Compare strings with different characters
+    ft_res = ft_strncmp("Hello", "Helxo", 5);
+    std_res = strncmp("Hello", "Helxo", 5);
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Different strings with n = 5.\n");
+
+    // Test 3: Compare strings where s1 is greater than s2
+    ft_res = ft_strncmp("Hello", "HelLo", 5);
+    std_res = strncmp("Hello", "HelLo", 5);
+    assert(ft_res == std_res);
+    printf("Test 3 passed: s1 > s2.\n");
+
+    // Test 4: Compare strings where s2 is greater than s1
+    ft_res = ft_strncmp("HelLo", "Hello", 5);
+    std_res = strncmp("HelLo", "Hello", 5);
+    assert(ft_res == std_res);
+    printf("Test 4 passed: s1 < s2.\n");
+
+    // Test 5: Compare strings with n = 0 (should return 0)
+    ft_res = ft_strncmp("Hello", "Hello", 0);
+    std_res = strncmp("Hello", "Hello", 0);
+    assert(ft_res == std_res);
+    printf("Test 5 passed: n = 0.\n");
+
+    // Test 6: Compare strings with n smaller than the length of the strings
+    ft_res = ft_strncmp("Hello", "HelLo", 3);
+    std_res = strncmp("Hello", "HelLo", 3);
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Compare first 3 characters.\n");
+
+    // Test 7: Compare strings of different lengths
+    ft_res = ft_strncmp("Hello", "HelloWorld", 10);
+    std_res = strncmp("Hello", "HelloWorld", 10);
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Compare different lengths.\n");
+
+    // Test 8: Compare strings with a null character in s1
+    ft_res = ft_strncmp("Hello\0World", "Hello", 10);
+    std_res = strncmp("Hello\0World", "Hello", 10);
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Compare with null character in s1.\n");
+
+    // Test 9: Compare an empty string with a non-empty string
+    ft_res = ft_strncmp("", "Hello", 5);
+    std_res = strncmp("", "Hello", 5);
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Compare empty string with non-empty string.\n");
+
+    // Test 10: Compare two empty strings
+    ft_res = ft_strncmp("", "", 5);
+    std_res = strncmp("", "", 5);
+    assert(ft_res == std_res);
+    printf("Test 10 passed: Compare two empty strings.\n");
+
+    // Test 11: Compare strings where one string is a prefix of the other
+    ft_res = ft_strncmp("Hello", "Hell", 5);
+    std_res = strncmp("Hello", "Hell", 5);
+    assert(ft_res == std_res);
+    printf("Test 11 passed: One string is a prefix of the other.\n");
+
+    printf("All tests passed!\n\n");
+}
+
 int main(void)
 {
     test_ft_isalpha();
@@ -889,5 +965,7 @@ int main(void)
 	test_ft_strchr();
 
 	test_ft_strrchr();
+
+	test_ft_strncmp();
 	return (0);
 }
