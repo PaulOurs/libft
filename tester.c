@@ -1087,6 +1087,286 @@ void test_ft_memcmp(void)
     printf("All tests passed!\n\n");
 }
 
+void test_ft_strnstr(void)
+{
+	printf("=== ft_strnstr ===\n");
+	printf("Running tests...\n");
+
+	char *ft_res, *std_res;
+
+    // Test 1: Searching for an empty string in "Hello, World!"
+    char big1[] = "Hello, World!";
+    char little1[] = "";
+    ft_res = ft_strnstr(big1, little1, 13);
+    std_res = strnstr(big1, little1, 13);
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Searching for an empty string.\n");
+
+    // Test 2: Searching for "World" in "Hello, World!"
+    char little2[] = "World";
+    ft_res = ft_strnstr(big1, little2, 13);
+    std_res = strnstr(big1, little2, 13);
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Searching for 'World' within the string.\n");
+
+    // Test 3: Searching for "World" but with len smaller than its location
+    ft_res = ft_strnstr(big1, little2, 7);  // 'World' starts after 7th character
+    std_res = strnstr(big1, little2, 7);
+    assert(ft_res == std_res);
+    printf("Test 3 passed: Searching with len smaller than the substring position.\n");
+
+    // Test 4: Searching for a substring that does not exist
+    char little3[] = "42";
+    ft_res = ft_strnstr(big1, little3, 13);
+    std_res = strnstr(big1, little3, 13);
+    assert(ft_res == std_res);
+    printf("Test 4 passed: Searching for a substring that does not exist.\n");
+
+    // Test 5: Searching for a substring that starts at the beginning
+    char little4[] = "Hello";
+    ft_res = ft_strnstr(big1, little4, 5);  // len covers the exact match length
+    std_res = strnstr(big1, little4, 5);
+    assert(ft_res == std_res);
+    printf("Test 5 passed: Searching for a substring at the beginning.\n");
+
+    // Test 6: Searching for a substring that is partially within the length
+    ft_res = ft_strnstr(big1, little2, 11);  // 'World' starts after len=11
+    std_res = strnstr(big1, little2, 11);
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Searching for a substring cut off by len.\n");
+
+    // Test 7: Searching for a substring within an empty string
+    char big2[] = "";
+    ft_res = ft_strnstr(big2, little1, 1);  // Searching for empty substring
+    std_res = strnstr(big2, little1, 1);
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Searching in an empty string for an empty substring.\n");
+
+    // Test 8: Searching for a non-empty substring within an empty string
+    ft_res = ft_strnstr(big2, little4, 5);  // No match because big2 is empty
+    std_res = strnstr(big2, little4, 5);
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Searching for a non-empty substring in an empty string.\n");
+
+    // Test 9: Searching for the full string within itself (boundary case)
+    ft_res = ft_strnstr(big1, big1, strlen(big1));
+    std_res = strnstr(big1, big1, strlen(big1));
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Searching for the full string within itself.\n");
+
+    // Test 10: Searching with len = 0 (should return NULL)
+    ft_res = ft_strnstr(big1, little2, 0);  // len is 0, should return NULL
+    std_res = strnstr(big1, little2, 0);
+    assert(ft_res == std_res);
+    printf("Test 10 passed: Searching with len = 0.\n");
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_atoi(void)
+{
+	printf("=== ft_atoi ===\n");
+	printf("Running tests...\n");
+
+	int ft_res, std_res;
+
+    // Test 1: Convert a positive number
+    ft_res = ft_atoi("12345");
+    std_res = atoi("12345");
+    assert(ft_res == std_res);
+    printf("Test 1 passed: Convert a positive number.\n");
+
+    // Test 2: Convert a negative number
+    ft_res = ft_atoi("-54321");
+    std_res = atoi("-54321");
+    assert(ft_res == std_res);
+    printf("Test 2 passed: Convert a negative number.\n");
+
+    // Test 3: Convert zero
+    ft_res = ft_atoi("0");
+    std_res = atoi("0");
+    assert(ft_res == std_res);
+    printf("Test 3 passed: Convert zero.\n");
+
+    // Test 4: Convert a number with leading spaces
+    ft_res = ft_atoi("   42");
+    std_res = atoi("   42");
+    assert(ft_res == std_res);
+    printf("Test 4 passed: Convert a number with leading spaces.\n");
+
+    // Test 5: Convert a negative number with leading spaces
+    ft_res = ft_atoi("   -123");
+    std_res = atoi("   -123");
+    assert(ft_res == std_res);
+    printf("Test 5 passed: Convert a negative number with leading spaces.\n");
+
+    // Test 6: Convert a number with trailing non-numeric characters
+    ft_res = ft_atoi("123abc");
+    std_res = atoi("123abc");
+    assert(ft_res == std_res);
+    printf("Test 6 passed: Convert a number with trailing non-numeric characters.\n");
+
+    // Test 7: Convert a number with a plus sign
+    ft_res = ft_atoi("+456");
+    std_res = atoi("+456");
+    assert(ft_res == std_res);
+    printf("Test 7 passed: Convert a number with a plus sign.\n");
+
+    // Test 8: Convert an empty string (should return 0)
+    ft_res = ft_atoi("");
+    std_res = atoi("");
+    assert(ft_res == std_res);
+    printf("Test 8 passed: Convert an empty string (should return 0).\n");
+
+    // Test 9: Convert a string with only spaces (should return 0)
+    ft_res = ft_atoi("    ");
+    std_res = atoi("    ");
+    assert(ft_res == std_res);
+    printf("Test 9 passed: Convert a string with only spaces (should return 0).\n");
+
+    // Test 10: Convert a string with multiple signs (undefined behavior, both should behave the same)
+    ft_res = ft_atoi("--123");
+    std_res = atoi("--123");
+    assert(ft_res == std_res);
+    printf("Test 10 passed: Convert a string with multiple signs (undefined behavior).\n");
+
+    // Test 11: Convert a string with INT_MAX value
+    ft_res = ft_atoi("2147483647");
+    std_res = atoi("2147483647");
+    assert(ft_res == std_res);
+    printf("Test 11 passed: Convert INT_MAX value.\n");
+
+    // Test 12: Convert a string with INT_MIN value
+    ft_res = ft_atoi("-2147483648");
+    std_res = atoi("-2147483648");
+    assert(ft_res == std_res);
+    printf("Test 12 passed: Convert INT_MIN value.\n");
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_calloc(void)
+{
+	printf("=== ft_calloc ===\n");
+	printf("Running tests...\n");
+
+	void *ft_res, *std_res;
+    int i;
+
+    // Test 1: Allocate 10 integers (should be initialized to zero)
+    ft_res = ft_calloc(10, sizeof(int));
+    std_res = calloc(10, sizeof(int));
+    assert(memcmp(ft_res, std_res, 10 * sizeof(int)) == 0);
+    printf("Test 1 passed: Allocate 10 integers (initialized to zero).\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 2: Allocate 20 characters (should be initialized to zero)
+    ft_res = ft_calloc(20, sizeof(char));
+    std_res = calloc(20, sizeof(char));
+    assert(memcmp(ft_res, std_res, 20 * sizeof(char)) == 0);
+    printf("Test 2 passed: Allocate 20 characters (initialized to zero).\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 3: Allocate 0 elements (should return a valid pointer)
+    ft_res = ft_calloc(0, sizeof(char));
+    std_res = calloc(0, sizeof(char));
+    assert(ft_res != NULL);
+    assert(std_res != NULL);
+    printf("Test 3 passed: Allocate 0 elements (returns a valid pointer).\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 4: Allocate 0 size (should return a valid pointer)
+    ft_res = ft_calloc(10, 0);
+    std_res = calloc(10, 0);
+    assert(ft_res != NULL);
+    assert(std_res != NULL);
+    printf("Test 4 passed: Allocate 0 size (returns a valid pointer).\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 5: Allocate 5 doubles (should be initialized to zero)
+    ft_res = ft_calloc(5, sizeof(double));
+    std_res = calloc(5, sizeof(double));
+    assert(memcmp(ft_res, std_res, 5 * sizeof(double)) == 0);
+    printf("Test 5 passed: Allocate 5 doubles (initialized to zero).\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 6: Allocate large memory and check for zero initialization
+    size_t large_size = 100000;
+    ft_res = ft_calloc(large_size, sizeof(char));
+    std_res = calloc(large_size, sizeof(char));
+    assert(memcmp(ft_res, std_res, large_size * sizeof(char)) == 0);
+    printf("Test 6 passed: Allocate large memory (initialized to zero).\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 7: Allocate 5 integers and check all values are zero
+    ft_res = ft_calloc(5, sizeof(int));
+    for (i = 0; i < 5; i++) {
+        assert(((int*)ft_res)[i] == 0);
+    }
+    printf("Test 7 passed: Verify allocated memory is zeroed out.\n");
+    free(ft_res);
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_strdup(void)
+{
+	printf("=== ft_strdup ===\n");
+	printf("Running tests...\n");
+
+	char *ft_res;
+    char *std_res;
+
+    // Test 1: Duplicate a simple string
+    ft_res = ft_strdup("Hello, World!");
+    std_res = strdup("Hello, World!");
+    assert(strcmp(ft_res, std_res) == 0);
+    printf("Test 1 passed: Duplicate a simple string.\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 2: Duplicate an empty string
+    ft_res = ft_strdup("");
+    std_res = strdup("");
+    assert(strcmp(ft_res, std_res) == 0);
+    printf("Test 2 passed: Duplicate an empty string.\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 3: Duplicate a string with special characters
+    ft_res = ft_strdup("!@#$%^&*()_+");
+    std_res = strdup("!@#$%^&*()_+");
+    assert(strcmp(ft_res, std_res) == 0);
+    printf("Test 3 passed: Duplicate a string with special characters.\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 4: Duplicate a long string
+    char long_str[] = "This is a really long string to test the function ft_strdup for large inputs.";
+    ft_res = ft_strdup(long_str);
+    std_res = strdup(long_str);
+    assert(strcmp(ft_res, std_res) == 0);
+    printf("Test 4 passed: Duplicate a long string.\n");
+    free(ft_res);
+    free(std_res);
+
+    // Test 5: Verify that ft_strdup allocates new memory and the content is correct
+    char original[] = "Memory Test";
+    ft_res = ft_strdup(original);
+    assert(ft_res != NULL); // Check memory was allocated
+    assert(strcmp(ft_res, original) == 0); // Ensure the content is the same
+    printf("Test 5 passed: Verify content is correctly duplicated.\n");
+    free(ft_res);
+
+    printf("All tests passed!\n");
+}
+
 int main(void)
 {
     test_ft_isalpha();
@@ -1126,5 +1406,13 @@ int main(void)
 	test_ft_memchr();
 
 	test_ft_memcmp();
+
+	test_ft_strnstr();
+
+	test_ft_atoi();
+
+	test_ft_calloc();
+
+	test_ft_strdup();
 	return (0);
 }
