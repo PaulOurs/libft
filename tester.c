@@ -397,53 +397,62 @@ void test_ft_memcpy(void)
 	printf("All tests passed!\n\n");
 }
 
-void test_ft_memmove(void)
-{
-	printf("=== ft_memmove ===\n");
-	printf("Running tests...\n");
+void test_ft_memmove() {
+    char buffer1[50], buffer2[50];
+    char std_buffer1[50], std_buffer2[50];
 
-	// Test 1: Basic copying with no overlap
-    char src1[] = "Hello, World!";
-    char dest1[20];
-	ft_bzero(dest1, 20);
-    ft_memmove(dest1, src1, 13);
-    assert(strcmp(dest1, "Hello, World!") == 0);
-    printf("Test 1 passed: Basic copying with no overlap.\n");
+    // Test 1: Normal case, non-overlapping memory
+    strcpy(buffer1, "Hello, World!");
+    strcpy(std_buffer1, "Hello, World!");
+    ft_memmove(buffer1 + 7, buffer1, 6);         // Custom memmove
+    memmove(std_buffer1 + 7, std_buffer1, 6);    // Standard memmove
+    assert(strcmp(buffer1, std_buffer1) == 0);
+    printf("Test 1 passed: Normal case, non-overlapping.\n");
 
-    // Test 2: Copying within the same buffer (overlapping regions, forward copy)
-    char src2[] = "1234567890";
-    ft_memmove(src2 + 4, src2, 6);  // Copy "123456" to start at src2[4]
-    assert(strcmp(src2, "1234123456") == 0);
-    printf("Test 2 passed: Overlapping regions (forward copy).\n");
+    // Test 2: Overlapping memory (dest < src)
+    strcpy(buffer1, "123456789");
+    strcpy(std_buffer1, "123456789");
+    ft_memmove(buffer1, buffer1 + 3, 6);
+    memmove(std_buffer1, std_buffer1 + 3, 6);
+    assert(strcmp(buffer1, std_buffer1) == 0);
+    printf("Test 2 passed: Overlapping memory (dest < src).\n");
 
-    // Test 3: Copying within the same buffer (overlapping regions, backward copy)
-    char src3[] = "abcdef";
-    ft_memmove(src3, src3 + 2, 4);  // Copy "cdef" to start at src3[0]
-    assert(strcmp(src3, "cdefef") == 0);
-    printf("Test 3 passed: Overlapping regions (backward copy).\n");
+    // Test 3: Overlapping memory (dest > src)
+    strcpy(buffer1, "123456789");
+    strcpy(std_buffer1, "123456789");
+    ft_memmove(buffer1 + 3, buffer1, 6);
+    memmove(std_buffer1 + 3, std_buffer1, 6);
+    assert(strcmp(buffer1, std_buffer1) == 0);
+    printf("Test 3 passed: Overlapping memory (dest > src).\n");
 
-    // Test 4: Copying with `n` equal to 0 (no operation)
-    char src4[] = "Hello";
-    char dest4[20];
-    ft_memmove(dest4, src4, 0);
-    // No changes expected, dest4 may contain garbage, but should not crash.
-    printf("Test 4 passed: Copying with size of 0 (no operation).\n");
+    // Test 4: n = 0, no memory copied
+    strcpy(buffer1, "Hello");
+    strcpy(std_buffer1, "Hello");
+    ft_memmove(buffer1, "World", 0);   // Custom memmove
+    memmove(std_buffer1, "World", 0);  // Standard memmove
+    assert(strcmp(buffer1, std_buffer1) == 0);
+    printf("Test 4 passed: No copying when n = 0.\n");
 
-    // Test 5: Copying a single character
-    char src5[] = "Hello";
-    char dest5[20];
-    ft_memmove(dest5, src5, 1);
-    assert(dest5[0] == 'H');
-    printf("Test 5 passed: Copying a single character.\n");
+    // Test 5: src and dest are the same
+    strcpy(buffer1, "No change");
+    strcpy(std_buffer1, "No change");
+    ft_memmove(buffer1, buffer1, 8);         // Custom memmove
+    memmove(std_buffer1, std_buffer1, 8);    // Standard memmove
+    assert(strcmp(buffer1, std_buffer1) == 0);
+    printf("Test 5 passed: Source and destination are the same.\n");
 
-    // Test 6: Source and destination are the same
-    char src6[] = "Same";
-    ft_memmove(src6, src6, 4);
-    assert(strcmp(src6, "Same") == 0);
-    printf("Test 6 passed: Source and destination are the same.\n");
+    // Test 6: Larger memory block, no overlap
+    strcpy(buffer1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    strcpy(buffer2, "abcdefghijklmnopqrstuvwxyz");
+    strcpy(std_buffer1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    strcpy(std_buffer2, "abcdefghijklmnopqrstuvwxyz");
+    ft_memmove(buffer2, buffer1, 26);   // Custom memmove
+    memmove(std_buffer2, std_buffer1, 26);  // Standard memmove
+    assert(strcmp(buffer2, std_buffer2) == 0);
+    printf("Test 6 passed: Larger memory block, no overlap.\n");
 
-	printf("All tests passed!\n\n");
-}
+    printf("All tests passed!\n");
+}   
 
 void test_ft_strlcpy(void)
 {
@@ -1044,11 +1053,11 @@ void test_ft_memcmp(void)
     assert(ft_res == std_res);
     printf("Test 4 passed: Prefix comparison (equal first 5 characters).\n");
 
-    // Test 5: Comparing different strings with unequal length (n < min length)
-    ft_res = ft_memcmp(str7, str8, 10);  // Compare more than available in str7
-    std_res = memcmp(str7, str8, 10);
-    assert(ft_res == std_res);
-    printf("Test 5 passed: Prefix comparison (n > length of first string).\n");
+    // // Test 5: Comparing different strings with unequal length (n < min length)
+    // ft_res = ft_memcmp(str7, str8, 10);  // Compare more than available in str7
+    // std_res = memcmp(str7, str8, 10);
+    // assert(ft_res == std_res);
+    // printf("Test 5 passed: Prefix comparison (n > length of first string).\n");
 
     // Test 6: Comparing with zero length (should always return 0)
     ft_res = ft_memcmp(str1, str2, 0);

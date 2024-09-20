@@ -37,6 +37,7 @@ SRCS = ft_isalpha.c\
 	ft_strdup.c\
 	ft_substr.c\
 	ft_strjoin.c\
+	tester.c\
 
 OBJS = $(SRCS:.c=.o)
 
