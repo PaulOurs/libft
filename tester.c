@@ -1367,8 +1367,128 @@ void test_ft_strdup(void)
     printf("All tests passed!\n");
 }
 
+void test_ft_substr(void)
+{
+	printf("=== ft_substr ===\n");
+	printf("Running tests...\n");
+
+	char *res;
+
+    // Test 1: Normal case
+    res = ft_substr("Hello, World!", 7, 5); // Expected: "World"
+    assert(strcmp(res, "World") == 0);
+    printf("Test 1 passed: Normal case.\n");
+    free(res);
+
+    // Test 2: Start index out of bounds
+    res = ft_substr("Hello", 10, 5); // Expected: ""
+    assert(strcmp(res, "") == 0);
+    printf("Test 2 passed: Start index out of bounds.\n");
+    free(res);
+
+    // Test 3: Length longer than remaining string
+    res = ft_substr("Hello", 3, 10); // Expected: "lo"
+    assert(strcmp(res, "lo") == 0);
+    printf("Test 3 passed: Length longer than remaining string.\n");
+    free(res);
+
+    // Test 4: Empty string as input
+    res = ft_substr("", 0, 5); // Expected: ""
+    assert(strcmp(res, "") == 0);
+    printf("Test 4 passed: Empty string as input.\n");
+    free(res);
+
+    // Test 5: Start at the beginning and get full string
+    res = ft_substr("Hello", 0, 5); // Expected: "Hello"
+    assert(strcmp(res, "Hello") == 0);
+    printf("Test 5 passed: Start at the beginning and get full string.\n");
+    free(res);
+
+    // Test 6: Start index equals the string length
+    res = ft_substr("Hello", 5, 3); // Expected: ""
+    assert(strcmp(res, "") == 0);
+    printf("Test 6 passed: Start index equals the string length.\n");
+    free(res);
+
+    // Test 7: Length of 0 (should return empty string)
+    res = ft_substr("Hello", 1, 0); // Expected: ""
+    assert(strcmp(res, "") == 0);
+    printf("Test 7 passed: Length of 0.\n");
+    free(res);
+
+    // Test 8: Substring from middle of the string
+    res = ft_substr("Substring test", 3, 6); // Expected: "string"
+    assert(strcmp(res, "string") == 0);
+    printf("Test 8 passed: Substring from the middle of the string.\n");
+    free(res);
+
+    // Test 9: Substring of a single character
+    res = ft_substr("Single character", 7, 1); // Expected: "c"
+    assert(strcmp(res, "c") == 0);
+    printf("Test 9 passed: Substring of a single character.\n");
+    free(res);
+
+    printf("All tests passed!\n\n");
+}
+
+void test_ft_strjoin(void)
+{
+	printf("=== ft_strjoin ===\n");
+	printf("Running tests...\n");
+
+	char *res;
+
+    // Test 1: Normal case, joining two strings
+    res = ft_strjoin("Hello, ", "World!");  // Expected: "Hello, World!"
+    assert(strcmp(res, "Hello, World!") == 0);
+    printf("Test 1 passed: Normal case.\n");
+    free(res);
+
+    // Test 2: Joining an empty string with a non-empty string
+    res = ft_strjoin("", "Non-empty");  // Expected: "Non-empty"
+    assert(strcmp(res, "Non-empty") == 0);
+    printf("Test 2 passed: Empty string with non-empty string.\n");
+    free(res);
+
+    // Test 3: Joining a non-empty string with an empty string
+    res = ft_strjoin("Non-empty", "");  // Expected: "Non-empty"
+    assert(strcmp(res, "Non-empty") == 0);
+    printf("Test 3 passed: Non-empty string with empty string.\n");
+    free(res);
+
+    // Test 4: Joining two empty strings
+    res = ft_strjoin("", "");  // Expected: ""
+    assert(strcmp(res, "") == 0);
+    printf("Test 4 passed: Joining two empty strings.\n");
+    free(res);
+
+    // Test 5: Joining long strings
+    res = ft_strjoin("This is a long string ", "and another long string.");
+    assert(strcmp(res, "This is a long string and another long string.") == 0);
+    printf("Test 5 passed: Joining long strings.\n");
+    free(res);
+
+    // Test 6: NULL for first string (should return NULL)
+    res = ft_strjoin(NULL, "World!");  // Expected: NULL
+    assert(res == NULL);
+    printf("Test 6 passed: First string is NULL.\n");
+
+    // Test 7: NULL for second string (should return NULL)
+    res = ft_strjoin("Hello", NULL);  // Expected: NULL
+    assert(res == NULL);
+    printf("Test 7 passed: Second string is NULL.\n");
+
+    // Test 8: NULL for both strings (should return NULL)
+    res = ft_strjoin(NULL, NULL);  // Expected: NULL
+    assert(res == NULL);
+    printf("Test 8 passed: Both strings are NULL.\n");
+
+    printf("All tests passed!\n");
+}
+
 int main(void)
 {
+	printf("=== C Library ===\n");
     test_ft_isalpha();
 
     test_ft_isdigit();
@@ -1414,5 +1534,12 @@ int main(void)
 	test_ft_calloc();
 
 	test_ft_strdup();
+
+	printf("=== C Library ===\n\n");
+	printf("=== Additional functions ===\n");
+
+	test_ft_substr();
+
+	test_ft_strjoin();
 	return (0);
 }
