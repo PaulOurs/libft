@@ -1495,7 +1495,7 @@ void test_ft_strjoin(void)
     printf("All tests passed!\n");
 }
 
-void split_free(char **split) {
+void free_split(char **split) {
     int i = 0;
     while (split[i]) {
         free(split[i]);
@@ -1529,56 +1529,56 @@ void test_ft_split(void)
     expected[0] = "Hello"; expected[1] = "World"; expected[2] = "This";
     expected[3] = "is"; expected[4] = "42"; expected[5] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 1 passed: Basic split with space.\n");
 
     // Test 2: Splitting with commas
     ft_res = ft_split("Apple,Banana,Cherry", ',');
     expected[0] = "Apple"; expected[1] = "Banana"; expected[2] = "Cherry"; expected[3] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 2 passed: Split with comma.\n");
 
     // Test 3: Multiple consecutive delimiters
     ft_res = ft_split("::A::B::C::", ':');
     expected[0] = "A"; expected[1] = "B"; expected[2] = "C"; expected[3] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 3 passed: Split with multiple consecutive delimiters.\n");
 
     // Test 4: No delimiter present in the string
     ft_res = ft_split("NoDelimiter", ' ');
     expected[0] = "NoDelimiter"; expected[1] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 4 passed: No delimiter present in the string.\n");
 
     // Test 5: Empty string input
     ft_res = ft_split("", ' ');
     expected[0] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 5 passed: Empty string input.\n");
 
     // Test 6: String with only delimiters
     ft_res = ft_split(",,,,,", ',');
     expected[0] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 6 passed: String with only delimiters.\n");
 
     // Test 7: Delimiter at the beginning and end
     ft_res = ft_split("-Hello-", '-');
     expected[0] = "Hello"; expected[1] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 7 passed: Delimiter at beginning and end.\n");
 
     // Test 8: Single character string with a matching delimiter
     ft_res = ft_split("x", 'x');
     expected[0] = NULL;
     assert(compare_split(ft_res, expected));
-    split_free(ft_res);
+    free_split(ft_res);
     printf("Test 8 passed: Single character string with matching delimiter.\n");
 
     printf("All tests passed!\n");
