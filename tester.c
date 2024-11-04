@@ -1584,6 +1584,63 @@ void test_ft_split(void)
     printf("All tests passed!\n");
 }
 
+void test_ft_itoa(void) {
+    printf("=== ft_itoa ===\n");
+    printf("Running tests...\n");
+
+    char *result;
+
+    // Test 1: Positive integer
+    result = ft_itoa(12345);
+    assert(strcmp(result, "12345") == 0);
+    free(result);
+    printf("Test 1 passed: Positive integer\n");
+
+    // Test 2: Negative integer
+    result = ft_itoa(-6789);
+    assert(strcmp(result, "-6789") == 0);
+    free(result);
+    printf("Test 2 passed: Negative integer\n");
+
+    // Test 3: Zero
+    result = ft_itoa(0);
+    assert(strcmp(result, "0") == 0);
+    free(result);
+    printf("Test 3 passed: Zero\n");
+
+    // Test 4: Smallest 32-bit integer
+    result = ft_itoa(-2147483648);
+    assert(strcmp(result, "-2147483648") == 0);
+    free(result);
+    printf("Test 4 passed: Minimum 32-bit integer\n");
+
+    // Test 5: Largest 32-bit integer
+    result = ft_itoa(2147483647);
+    assert(strcmp(result, "2147483647") == 0);
+    free(result);
+    printf("Test 5 passed: Maximum 32-bit integer\n");
+
+    // Test 6: Single-digit positive integer
+    result = ft_itoa(7);
+    assert(strcmp(result, "7") == 0);
+    free(result);
+    printf("Test 6 passed: Single-digit positive integer\n");
+
+    // Test 7: Single-digit negative integer
+    result = ft_itoa(-3);
+    assert(strcmp(result, "-3") == 0);
+    free(result);
+    printf("Test 7 passed: Single-digit negative integer\n");
+
+    // Test 8: Power of 10
+    result = ft_itoa(1000);
+    assert(strcmp(result, "1000") == 0);
+    free(result);
+    printf("Test 8 passed: Power of 10\n");
+
+    printf("All tests passed!\n");
+}
+
 int main(void)
 {
 	printf("=== C Library ===\n");
@@ -1641,5 +1698,7 @@ int main(void)
 	test_ft_strjoin();
 
     test_ft_split();
+
+    test_ft_itoa();
 	return (0);
 }
