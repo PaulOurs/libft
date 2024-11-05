@@ -1641,6 +1641,55 @@ void test_ft_itoa(void) {
     printf("All tests passed!\n");
 }
 
+char to_upper(unsigned int i, char c) {
+    (void)i; // Ignoring 'i' in this function
+    if (c >= 'a' && c <= 'z')
+        return c - 32;
+    return c;
+}
+
+char add_index(unsigned int i, char c) {
+    return c + i;
+}
+
+void test_ft_strmapi(void) {
+    printf("=== ft_strmapi ===\n");
+    printf("Running tests...\n");
+
+    char *result;
+
+    // Test 1: Convert all characters to uppercase
+    result = ft_strmapi("hello", to_upper);
+    assert(strcmp(result, "HELLO") == 0);
+    free(result);
+    printf("Test 1 passed: Convert all to uppercase\n");
+
+    // Test 2: Add index to each character
+    result = ft_strmapi("abcd", add_index);
+    assert(strcmp(result, "aceg") == 0);  // 'a'+0='a', 'b'+1='c', 'c'+2='e', 'd'+3='g'
+    free(result);
+    printf("Test 2 passed: Add index to each character\n");
+
+    // Test 3: Empty string
+    result = ft_strmapi("", to_upper);
+    assert(strcmp(result, "") == 0);
+    free(result);
+    printf("Test 3 passed: Empty string\n");
+
+    // Test 4: String with special characters
+    result = ft_strmapi("HeLLo!123", to_upper);
+    assert(strcmp(result, "HELLO!123") == 0);
+    free(result);
+    printf("Test 4 passed: Mixed case with special characters\n");
+
+    // Test 5: Null input string
+    result = ft_strmapi(NULL, to_upper);
+    assert(result == NULL);
+    printf("Test 5 passed: Null input string\n");
+
+    printf("All tests passed!\n");
+}
+
 int main(void)
 {
 	printf("=== C Library ===\n");
@@ -1700,5 +1749,7 @@ int main(void)
     test_ft_split();
 
     test_ft_itoa();
+
+    test_ft_strmapi();
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 02:47:46 by paubello          #+#    #+#              #
-#    Updated: 2024/11/05 01:05:59 by paubello         ###   ########.fr        #
+#    Updated: 2024/11/05 01:34:28 by paubello         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS = ft_isalpha.c\
 	ft_strjoin.c\
 	ft_split.c\
 	ft_itoa.c\
+	ft_strmapi.c\
 	tester.c\
 
 OBJS = $(SRCS:.c=.o)
