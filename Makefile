@@ -6,13 +6,11 @@
 #    By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 02:47:46 by paubello          #+#    #+#              #
-#    Updated: 2024/11/06 19:33:58 by paubello         ###   ########.fr        #
+#    Updated: 2024/11/07 00:33:40 by paubello         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
-
-SRCS = ft_isalpha.c\
+MANDATORY = ft_isalpha.c\
 	ft_isdigit.c\
 	ft_isalnum.c\
 	ft_isascii.c\
@@ -48,21 +46,42 @@ SRCS = ft_isalpha.c\
 	ft_putnbr_fd.c\
 	# tester.c\
 
+BONUS = ft_lstnew_bonus.c\
+			# ft_lstadd_front_bonus.c\
+			# ft_lstsize_bonus.c\
+			# ft_lstlast_bonus.c\
+			# ft_lstadd_back_bonus.c\
+			# ft_lstdelone_bonus.c\
+			# ft_lstclear_bonus.c\
+			# ft_lstiter_bonus.c\
+			# ft_lstmap_bonus.c\
+
+SRCS = $(MANDATORY)
+
 OBJS = $(SRCS:.c=.o)
 
+NAME = libft.a
+
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
+RM = rm -f
 
+# Main Target
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
+# Rules
 all: $(NAME)
 
+bonus:
+	$(MAKE) SRCS="$(MANDATORY) $(BONUS)" OBJS="$(OBJS) $(BONUS:.c=.o)" $(NAME)
+
 clean:
-	rm -f $(OBJS)
+	$(RM) $(OBJS) $(BONUS:.c=.o)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
