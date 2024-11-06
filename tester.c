@@ -1496,7 +1496,7 @@ void test_ft_strjoin(void)
     assert(res == NULL);
     printf("Test 8 passed: Both strings are NULL.\n");
 
-    printf("All tests passed!\n");
+    printf("All tests passed!\n\n");
 }
 
 void free_split(char **split) {
@@ -1585,7 +1585,7 @@ void test_ft_split(void)
     free_split(ft_res);
     printf("Test 8 passed: Single character string with matching delimiter.\n");
 
-    printf("All tests passed!\n");
+    printf("All tests passed!\n\n");
 }
 
 void test_ft_itoa(void) {
@@ -1642,7 +1642,7 @@ void test_ft_itoa(void) {
     free(result);
     printf("Test 8 passed: Power of 10\n");
 
-    printf("All tests passed!\n");
+    printf("All tests passed!\n\n");
 }
 
 char to_upper(unsigned int i, char c) {
@@ -1690,6 +1690,53 @@ void test_ft_strmapi(void) {
     result = ft_strmapi(NULL, to_upper);
     assert(result == NULL);
     printf("Test 5 passed: Null input string\n");
+
+    printf("All tests passed!\n\n");
+}
+
+//Example functions for testing
+void to_upper2(unsigned int i, char *c) {
+    (void)i; // Ignoring 'i' in this function
+    if (*c >= 'a' && *c <= 'z')
+        *c -= 32;
+}
+
+void add_index2(unsigned int i, char *c) {
+    *c += i;
+}
+
+void test_ft_striteri(void) {
+    printf("=== ft_striteri ===\n");
+    printf("Running tests...\n");
+
+    char test_str1[] = "hello";
+    char test_str2[] = "abcd";
+    char test_str3[] = "";      // Empty string
+    char test_str4[] = "HeLLo!123";
+
+    // Test 1: Convert all characters to uppercase
+    ft_striteri(test_str1, to_upper2);
+    assert(strcmp(test_str1, "HELLO") == 0);
+    printf("Test 1 passed: Convert all to uppercase\n");
+
+    // Test 2: Add index to each character
+    ft_striteri(test_str2, add_index2);
+    assert(strcmp(test_str2, "aceg") == 0); // 'a'+0='a', 'b'+1='c', 'c'+2='e', 'd'+3='g'
+    printf("Test 2 passed: Add index to each character\n");
+
+    // Test 3: Empty string (should remain empty)
+    ft_striteri(test_str3, to_upper2);
+    assert(strcmp(test_str3, "") == 0);
+    printf("Test 3 passed: Empty string\n");
+
+    // Test 4: Mixed case and special characters
+    ft_striteri(test_str4, to_upper2);
+    assert(strcmp(test_str4, "HELLO!123") == 0);
+    printf("Test 4 passed: Mixed case with special characters\n");
+
+    // Test 5: Null string (should not alter anything or crash)
+    ft_striteri(NULL, to_upper2);
+    printf("Test 5 passed: Null string input (no changes expected)\n");
 
     printf("All tests passed!\n");
 }
@@ -1755,5 +1802,9 @@ int main(void)
     test_ft_itoa();
 
     test_ft_strmapi();
+
+    test_ft_striteri();
+
+    printf("=== Additional functions ===\n\n");
 	return (0);
 }
