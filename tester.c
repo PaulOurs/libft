@@ -398,6 +398,10 @@ void test_ft_memcpy(void)
 }
 
 void test_ft_memmove() {
+    printf("=== ft_memmove ===\n");
+	printf("Running tests...\n");
+
+
     char buffer1[50], buffer2[50];
     char std_buffer1[50], std_buffer2[50];
 
