@@ -6,7 +6,7 @@
 #    By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 02:47:46 by paubello          #+#    #+#              #
-#    Updated: 2024/11/07 00:33:40 by paubello         ###   ########.fr        #
+#    Updated: 2024/11/07 00:41:56 by paubello         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ MANDATORY = ft_isalpha.c\
 	# tester.c\
 
 BONUS = ft_lstnew_bonus.c\
-			# ft_lstadd_front_bonus.c\
+			ft_lstadd_front_bonus.c\
 			# ft_lstsize_bonus.c\
 			# ft_lstlast_bonus.c\
 			# ft_lstadd_back_bonus.c\
