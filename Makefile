@@ -6,7 +6,7 @@
 #    By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 02:47:46 by paubello          #+#    #+#              #
-#    Updated: 2024/11/05 18:28:46 by paubello         ###   ########.fr        #
+#    Updated: 2024/11/06 11:07:03 by paubello         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,11 +40,11 @@ SRCS = ft_isalpha.c\
 	ft_split.c\
 	ft_itoa.c\
 	ft_strmapi.c\
-	tester.c\
+	# tester.c\
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -lbsd
+CFLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
