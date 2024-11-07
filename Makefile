@@ -6,7 +6,7 @@
 #    By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 02:47:46 by paubello          #+#    #+#              #
-#    Updated: 2024/11/07 02:23:10 by paubello         ###   ########.fr        #
+#    Updated: 2024/11/07 11:23:25 by paubello         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,8 @@ BONUS = ft_lstnew_bonus.c\
 			ft_lstsize_bonus.c\
 			ft_lstlast_bonus.c\
 			ft_lstadd_back_bonus.c\
-			# ft_lstdelone_bonus.c\
-			# ft_lstclear_bonus.c\
+			ft_lstdelone_bonus.c\
+			ft_lstclear_bonus.c\
 			# ft_lstiter_bonus.c\
 			# ft_lstmap_bonus.c\
 
