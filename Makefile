@@ -6,7 +6,7 @@
 #    By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/20 02:47:46 by paubello          #+#    #+#              #
-#    Updated: 2024/11/07 13:19:32 by paubello         ###   ########.fr        #
+#    Updated: 2024/11/07 16:02:38 by paubello         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ BONUS = ft_lstnew_bonus.c\
 			ft_lstdelone_bonus.c\
 			ft_lstclear_bonus.c\
 			ft_lstiter_bonus.c\
-			# ft_lstmap_bonus.c\
+			ft_lstmap_bonus.c\
 
 SRCS = $(MANDATORY)
 
