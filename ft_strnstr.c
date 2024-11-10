@@ -6,7 +6,7 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 00:33:40 by paubello          #+#    #+#             */
-/*   Updated: 2024/11/07 18:44:32 by paubello         ###   ########.fr       */
+/*   Updated: 2024/11/10 04:10:47 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	if (*little == '\0')
 		return ((char *)big);
 	little_len = ft_strlen(little);
-	// if (little_len > len)
-	// 	return (NULL);
 	i = 0;
 	while (big[i] && i < len - little_len + 1)
 	{
