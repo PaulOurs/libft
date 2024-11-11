@@ -6,7 +6,7 @@
 /*   By: paubello <paubello@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 06:39:53 by paubello          #+#    #+#             */
-/*   Updated: 2024/11/05 01:07:51 by paubello         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:17:04 by paubello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,13 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	char		*d;
 	const char	*s;
-	size_t		i;
 
 	d = (char *)dest;
 	s = (char *)src;
 	if (d == s || n == 0)
 		return (dest);
 	if (d < s)
-	{
-		i = 0;
-		while (i < n)
-		{
-			d[i] = s[i];
-			i++;
-		}
-	}
+		ft_memcpy(d, s, n);
 	else
 	{
 		while (n--)
